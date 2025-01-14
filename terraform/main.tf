@@ -9,8 +9,10 @@ variable "smtp_password" {
   sensitive   = true
 }
 
+# IAM Role for Lambda execution
 resource "aws_iam_role" "lambda_exec_role" {
   name = "contact_form_lambda_exec_role"
+  
   assume_role_policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -19,19 +21,36 @@ resource "aws_iam_role" "lambda_exec_role" {
         Effect = "Allow"
         Principal = {
           Service = "lambda.amazonaws.com"
-        },
-        "Action": "kms:Decrypt",
-        "Resource": "*"
+        }
       }
     ]
   })
 }
 
+# Attach the basic Lambda execution policy
 resource "aws_iam_role_policy_attachment" "lambda_policy" {
   role       = aws_iam_role.lambda_exec_role.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+# Inline policy for KMS Decrypt permission
+resource "aws_iam_role_policy" "lambda_kms_policy" {
+  name = "lambda_kms_decrypt_policy"
+  role = aws_iam_role.lambda_exec_role.name
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow"
+        Action   = "kms:Decrypt"
+        Resource = "arn:aws:kms:ap-south-1:880622142287:key/eef2be25-a387-4889-bc86-bf7543b2c647"
+      }
+    ]
+  })
+}
+
+# Lambda function configuration
 resource "aws_lambda_function" "email_lambda" {
   filename         = "lambda.zip"
   function_name    = "email_handler"
@@ -49,6 +68,7 @@ resource "aws_lambda_function" "email_lambda" {
   }
 }
 
+# API Gateway configuration
 resource "aws_apigatewayv2_api" "http_api" {
   name          = "email_api"
   protocol_type = "HTTP"
