@@ -1,5 +1,12 @@
-provider "aws" {
-  region = "ap-south-1"
+variable "smtp_email" {
+  description = "SMTP email address"
+  type        = string
+}
+
+variable "smtp_password" {
+  description = "SMTP password (app password)"
+  type        = string
+  sensitive   = true
 }
 
 resource "aws_iam_role" "lambda_exec_role" {

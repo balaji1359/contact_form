@@ -49,3 +49,11 @@ jobs:
 
     - name: Cleanup build artifacts
       run: rm -f terraform/lambda.zip main
+
+    - name: Terraform Apply
+      env:
+        AWS_REGION: "ap-south-1"
+        TF_VAR_smtp_email: ${{ secrets.SMTP_EMAIL }}       # Secret for email
+        TF_VAR_smtp_password: ${{ secrets.SMTP_PASSWORD }} # Secret for password
+        TF_VAR_aws_region: "ap-south-1"
+      run: terraform apply -auto-approve
