@@ -1,0 +1,55 @@
+# Binaries for programs and plugins
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+main
+
+# Build directories
+/bin/
+/build/
+/dist/
+
+# Go modules
+/go.mod
+/go.sum
+
+# Go generated files
+*.gen.go
+
+# Terraform state files
+terraform/.terraform/
+terraform/.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.*
+
+# Terraform plan files
+*.tfplan
+
+# AWS credentials
+*.pem
+*.key
+*.crt
+.aws/
+
+# Logs and temporary files
+*.log
+*.tmp
+*.swp
+
+# Node modules (if front-end involved)
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+
+# IDE specific files
+.vscode/
+.idea/
+*.iml
+
+# GitHub Actions artifacts
+lambda.zip
