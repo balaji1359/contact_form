@@ -31,12 +31,12 @@ resource "aws_iam_role_policy_attachment" "lambda_policy" {
 }
 
 resource "aws_lambda_function" "email_lambda" {
-  filename         = "handler.zip"
+  filename         = "../handler.zip"
   function_name    = "email_handler"
   role             = aws_iam_role.lambda_exec_role.arn
   handler          = "main"
   runtime          = "go1.x"
-  source_code_hash = filebase64sha256("handler.zip")
+  source_code_hash = filebase64sha256("../handler.zip")
   
   environment {
     variables = {
