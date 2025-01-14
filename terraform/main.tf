@@ -19,7 +19,9 @@ resource "aws_iam_role" "lambda_exec_role" {
         Effect = "Allow"
         Principal = {
           Service = "lambda.amazonaws.com"
-        }
+        },
+        "Action": "kms:Decrypt",
+        "Resource": "*"
       }
     ]
   })
