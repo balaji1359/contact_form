@@ -57,6 +57,7 @@ resource "aws_lambda_function" "email_lambda" {
   handler         = "bootstrap"  # Changed to bootstrap for provided.al2023
   runtime         = "provided.al2023"
   architectures   = ["x86_64"]
+  timeout         = 30
   source_code_hash = filebase64sha256("lambda.zip")
 
   environment {
