@@ -29,8 +29,8 @@ jobs:
 
     - name: Build Go binary for Lambda
       run: |
-        GOOS=linux GOARCH=amd64 go build -o main main.go
-        zip terraform/lambda.zip main
+        GOARCH=amd64 GOOS=linux go build -o bootstrap main.go
+        zip terraform/lambda.zip bootstrap
 
     - name: Set up AWS credentials
       uses: aws-actions/configure-aws-credentials@v2
