@@ -56,7 +56,7 @@ resource "aws_lambda_function" "email_lambda" {
   role            = aws_iam_role.lambda_exec_role.arn
   handler         = "bootstrap"  # Changed to bootstrap for provided.al2023
   runtime         = "provided.al2023"
-  architectures   = ["x86_64"]
+  architectures   = ["arm64"]
   timeout         = 30
   source_code_hash = filebase64sha256("lambda.zip")
 
