@@ -20,11 +20,11 @@ jobs:
 
     - name: Initialize Go module and download dependencies
       run: |
-        echo 'module contact-form-lambda
-
-go 1.21
-
-require github.com/aws/aws-lambda-go v1.47.0' > go.mod
+        echo "module contact-form-lambda" > go.mod
+        echo "" >> go.mod
+        echo "go 1.21" >> go.mod
+        echo "" >> go.mod
+        echo "require github.com/aws/aws-lambda-go v1.47.0" >> go.mod
         go mod tidy
 
     - name: Install Terraform
